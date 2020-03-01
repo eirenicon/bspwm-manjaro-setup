@@ -12,4 +12,7 @@ License Limitations:
     -- If you find my materials helpful, both you & I will be happy, at least for a little while.
     -- My advice is worth every penny you paid for it!
     
+ I provide more information on what I learn as I break things here:
+ https://eirenicon.org/knowledge-base/
+ 
  Enjoy!
