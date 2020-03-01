@@ -1,0 +1,234 @@
+#-- Informant Conky
+#-- Date       : 26/10/2017
+#-- Editor     : Erik Dubois
+#-- Version    : v3.0.4
+#-- revised by : Mark Rabideau (manyroads)
+#-- revisions on: 21-29 May 2019 & 24 Dec 2019
+
+#-- By Addy
+#-- https://plus.google.com/+AdhiPambudi
+#-- http://addy-dclxvi.deviantart.com/
+#-- https://github.com/addy-dclxvi
+
+#-- For commands available check:
+#-- http://conky.sourceforge.net/variables.html
+
+##  Begin antiX Window Settings  #####################
+
+# Create own window instead of using desktop (required in nautilus, pcmanfm and rox desktops)
+own_window yes
+own_window_transparent no
+own_window_hints undecorated,below,sticky,skip_taskbar
+own_window_type desktop
+
+## ARGB can be used for real transparency
+## NOTE that a composite manager is required for real transparency.
+## This option will not work as desired (in most cases) in conjunction with
+## own_window_type normal
+own_window_argb_visual yes
+
+## When ARGB visuals are enabled, use this to modify the alpha value
+## Use: own_window_type normal
+## Use: own_window_transparent no
+## Valid range is 0-255, where 0 is 0% opacity, and 255 is 100% opacity.
+own_window_argb_value 75
+own_window_colour 000000
+
+# Minimum size of text area
+minimum_size 5 5
+#maximum_width 350
+minimum_width 280
+maximum_height 380
+
+gap_x 15
+gap_y 65
+
+alignment top_right
+
+##  End Window Settings  ###
+
+##  Font Settings  ######################
+#-- Use Xft (anti-aliased font and stuff)
+use_xft yes
+# Requires mono font for spacing reasons
+# xftfont Liberation Mono:bold:size=9
+xftfont Roboto:size=10
+
+# Alpha of Xft font. Must be a value at or between 1 and 0 ###
+xftalpha 1
+#-- Force UTF8? requires XFT ###
+override_utf8_locale yes
+
+uppercase no
+##  End Font Settings  ###
+
+## Color scheme ##
+draw_shades no ##yes
+default_shade_color black
+draw_outline no ## amplifies text if yes
+default_outline_color black
+
+## Default Color Quick Choice Options ##################
+## fe4515 crimson-orange (Numix theme color)
+#color3 fe4515
+## Soldier Blue (Flat-remix icon blue color)
+#color3 3873d7
+## Bright Blue (Flat-remix bold blue)
+#color3 0000ff
+## Green-Grey (Flat-remix green)
+#color3 269687
+## Redish-Purple (Flat-remix redish-purple)
+#color3 ba174e
+## Orange (Flat-remix orange)
+#color3 F0544C
+## Red (Flat-remix red)
+#color3 D41919
+## Manjaro
+color3 16A085
+## Manjaro Contrast COlor
+color5 1677A1
+## Aliz Blue
+#color3 3498DB
+
+# Default colors and also border colors
+default_color 4d4d4d
+default_shade_color black
+#default_outline_color white
+own_window_colour 000000
+
+## ffffff white
+color1 ffffff
+
+## Green
+color2 0BFF00
+
+##Space Bar
+color4 FFFF00
+
+########################
+
+##  End Colour Settings  ###
+
+##  Borders Section  ##
+draw_borders yes
+#-- Stippled borders?
+stippled_borders 0
+#-- border margins
+#border_inner_margin 2
+#border_outer_margin 0
+border_margin 2
+#-- border width  ##
+border_width 1
+#-- graph borders  ##
+draw_graph_borders yes  ##no
+#--default_graph_size 15 40
+# border width
+border_width 1
+
+# Text alignment, other possible values are commented
+#alignment top_left
+#alignment top_right
+#alignment bottom_left
+#alignment bottom_right
+
+##  End Borders Secton  ###
+
+##  Miscellaneous Section  ##
+#-- Boolean value, if true, Conky will be forked to background when started.
+background no
+
+#-- Adds spaces around certain objects to stop them from moving other things
+#-- around, this only helps if you are using a mono font
+#-- Options: right, left or none
+use_spacer no
+
+#-- Default and Minimum size is 256 - needs more for single commands that
+#-- "call" a lot of text IE: bash scripts
+#--text_buffer_size 6144
+
+#-- Subtract (file system) buffers from used memory?
+no_buffers yes
+
+#-- change GiB to G and MiB to M
+short_units yes
+
+#-- Like it says, ot pads the decimals on % values
+#-- doesn't seem to work since v1.7.1
+pad_percents 2
+
+#-- Imlib2 image cache size, in bytes. Default 4MiB Increase this value if you use
+#-- $image lots. Set to 0 to disable the image cache.
+imlib_cache_size 0
+
+#-- Use the Xdbe extension? (eliminates flicker)
+#-- It is highly recommended to use own window with this one
+#-- so double buffer won't be so big.
+double_buffer yes
+
+#--   Maximum size of user text buffer, i.e. layout below TEXT line in config file
+#--  (default is 16384 bytes)
+#-- max_user_text 16384
+
+#-- Desired output unit of all objects displaying a temperature. Parameters are
+#-- either "fahrenheit" or "celsius". The default unit is degree Celsius.
+#-- temperature_unit Fahrenheit
+##  End Miscellaneous Section  ###
+
+update_interval 1
+
+#minimum_size 0 0
+
+TEXT
+#${font Good Times:size=72}$alignr${color3}${time %H}${color1}:${time %M}${font}${color3}
+
+${alignc}${color3}${font Good Times:12}Desktop: ${execi 86400 env | grep '^DESKTOP_SESSION' | cut -d'=' -f2-}${color3}
+${alignc}${font Roboto:pixelsize=15}${color1} ${exec lsb_release -ds} ${color3}
+${alignc}${color3}${font Roboto:pixelsize=13}User: ${color1}${execi 86400 whoami}
+${color1}${hr}
+${font Roboto:pixelsize=13}${alignr}${color3}Machine: ${color1}$nodename${color3} Uptime: ${color1}$uptime${color3}
+${font Roboto:pixelsize=13}${alignr} Arch.: ${color1}${machine}${color3}Kernel: ${color1}${kernel}${color3}
+${font Roboto:pixelsize=13}${alignr} Root: ${color1}${fs_used /}${color3} / ${color1}${fs_size /}${color3} ${color4}|${color3} Used: ${color1}${fs_used_perc}%${color3}
+#${alignr}${color3}Dropbox Used: ${color1}${fs_used /media/mark/Dropbox}${color3} of ${color1}${fs_size /media/mark/Dropbox}${color3} / ${color1}${fs_used_perc /media/mark/Dropbox}%${color3}
+${alignr} ${color3} RAM: ${color1}$mem / $memmax${color3} ${color4}|${color3} Swap: ${color1}${swap} / ${swapmax}${color3}
+#${alignr} ${color3}Battery: ${color1}${battery BAT0}${color3} ${color4}|${color3} Temp: ${color1}${hwmon 4 temp 1}°C${color3}${color4} |${color3} Fan: ${color1}${hwmon 5 fan 1} RPM${color3}
+${color1}${hr 1}
+${alignc}${color1}${font Good Times:12}CPU Usage${color3}${font}
+${alignr} ${color1} CPU Use: ${cpu cpu0} % of Available
+${alignr} ${color3} CPU-0: ${color3}${cpugraph 0 10,120 000000 0BFF00 -l}
+${alignr} ${color3} CPU-1: ${color3}${cpugraph 1 10,120 000000 0BFF00 -l}
+#${alignr} ${color3} CPU-2: ${color3}${cpugraph 2 10,120 000000 0BFF00 -l}
+#${alignr} ${color3} CPU-3: ${color3}${cpugraph 3 10,120 000000 0BFF00 -l}
+${color1}${hr 1}
+${alignc}${color1}${font Good Times:12}Net (${addr wlp1s0}) [${wireless_link_qual_perc wlp1s0}%]${font}
+   Down:${color3} ${downspeedf wlp1s0}kB/s ${alignr}${color1}Up:${color3} ${upspeedf wlp1s0}kB/s
+   ${downspeedgraph wlp1s0 30,120 000000 0BFF00} $alignr${upspeedgraph wlp1s0 30,120 000000 0BFF00}   
+${color1}${hr 1}
+${voffset 4}
+${font Good Times:32}$alignc${color1}${time %A},${color3} ${time %d}${color0} ${time %B} ${time %Y}${font}
+${font Good Times:size=48}$alignc${color3}${time %H}${color1}:${time %M}${font}${color1}
+${voffset 4}${hr}
+${voffset 4}${alignc}${font Good Times:32}${color3}Keybindings${color1}${font}
+${hr}
+[PrtSc]${alignr}Screenshot
+[F1] ${alignr}Rofi Menu
+[Super] + F1${alignr}Keybinding Index
+[Super] + F3${alignr}BSPWM Keybindings
+[Super] + F11${alignr}Online Help
+[Super] + F12${alignr}Open App Listing
+[Super] + Enter${alignr}Terminal
+[Super] + c${alignr}Celluloid
+[Super] + e${alignr}Text Editor
+[Super] + f${alignr}Thunar
+[Super] + h${alignr}Polybar Toggle
+[Super] + Num${alignr}Workspace Switch
+[Super] + x${alignr}Close Window
+[Super] + q${alignr}Logout
+[Alt] + b${alignr}Calibre
+[Alt] + c${alignr}Midnight Commander
+[Alt] + g${alignr}Geany
+[Alt] + m${alignr}eMail
+[Alt] + n${alignr}nnn File Manager
+[Alt] + o${alignr}Office
+[Alt] + v${alignr}Virtualbox
+[Alt] + w${alignr}Web Browser
+[Alt] + z${alignr}ZimWiki
